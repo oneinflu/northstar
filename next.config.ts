@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Static export configuration for Digital Ocean
+  output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  
+  // Disable features not supported in static export
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -35,6 +42,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  
+  // Performance optimizations for static export
+  compress: true,
+  poweredByHeader: false,
+  
+  // Base path configuration (if needed for subdirectory deployment)
+  // basePath: '/your-subdirectory',
+  
+  // Asset prefix for CDN (optional)
+  // assetPrefix: 'https://your-cdn.com',
+  
+  // Headers for security and performance (only works with server)
+  // Note: These won't work with static export, handle at web server level
 };
 
 export default nextConfig;
