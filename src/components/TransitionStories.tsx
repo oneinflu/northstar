@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Image from 'next/image';
 import TransitionCard from './TransitionCard';
 import StatsCard from './StatsCard';
@@ -20,7 +20,7 @@ const TransitionStories = () => {
         {/* Main Banner Image */}
         <div className="mb-8 rounded-lg">
           <Image
-            src="/banner.jpeg"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=300&fit=crop&crop=center"
             alt="Success Stories Banner"
             width={1200}
             height={300}

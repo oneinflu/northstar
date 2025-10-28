@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const Placements = () => {
   // Company logos matching the reference image

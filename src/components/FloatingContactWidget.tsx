@@ -1,6 +1,5 @@
-'use client';
+"use client";
 
-import React from 'react';
 import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
@@ -44,7 +43,7 @@ const FloatingContactWidget = () => {
       {/* Need Help Button Image */}
       <div className="mt-0.5">
         <Image
-          src="/Need-helpButton.webp"
+          src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=48&h=100&fit=crop&crop=center"
           alt="Need Help"
           width={48}
           height={100}

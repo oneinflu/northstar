@@ -32,7 +32,7 @@ const TransitionCard: React.FC<TransitionCardProps> = ({
       <div 
         className="absolute inset-0 rounded-xl opacity-30"
         style={{
-          backgroundImage: 'url(/learner-card-bg.png)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop&crop=center)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -47,7 +47,7 @@ const TransitionCard: React.FC<TransitionCardProps> = ({
         <div className="flex-shrink-0">
           <div className="relative w-16 h-16">
             <Image
-              src="/Frame.avif"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face"
               alt="Profile"
               fill
               className="rounded-lg object-cover"
