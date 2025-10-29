@@ -32,7 +32,7 @@ interface ComparisonFeature {
 
 const WhyNorthStar: React.FC = () => {
   const [selectedVideo, setSelectedVideo] = useState<TestimonialVideo | null>(null);
-  const [, setHoveredCertificate] = useState<string | null>(null);
+  const [, ] = useState<string | null>(null);
   const certificateRef = useRef<HTMLDivElement>(null);
 
   const testimonialVideos: TestimonialVideo[] = [
