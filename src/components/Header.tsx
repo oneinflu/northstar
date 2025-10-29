@@ -40,13 +40,13 @@ const Header = () => {
               
               {isCoursesOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <Link href="/courses/cma" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                  <Link href="/cma-usa" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                     CMA
                   </Link>
                   <Link href="/cpa-us" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                     CPA (US)
                   </Link>
-                  <Link href="/courses/acca" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                  <Link href="/acca-uk" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                     ACCA
                   </Link>
                 </div>
@@ -131,9 +131,9 @@ const Header = () => {
                 </button>
                 {isCoursesOpen && (
                   <div className="mt-2 ml-4 space-y-2">
-                    <Link href="/courses/cma" className="block text-gray-600 hover:text-indigo-600">CMA</Link>
+                    <Link href="/cma-usa" className="block text-gray-600 hover:text-indigo-600">CMA</Link>
                     <Link href="/cpa-us" className="block text-gray-600 hover:text-indigo-600">CPA (US)</Link>
-                    <Link href="/courses/acca" className="block text-gray-600 hover:text-indigo-600">ACCA</Link>
+                    <Link href="/acca-uk" className="block text-gray-600 hover:text-indigo-600">ACCA</Link>
                   </div>
                 )}
               </div>
