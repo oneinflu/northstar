@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import WhyNorthStar from '@/components/WhyNorthStar';
 import SuccessStories from '@/components/SuccessStories';
 import GlobalCareerPath from '@/components/GlobalCareerPath';
+import GlobalCoursesHub from '@/components/GlobalCoursesHub';
 import MeetYourMentor from "@/components/MeetYourMentor";
 import LearningExperience from '@/components/LearningExperience';
 import GlobalCareerSuccess from '@/components/GlobalCareerSuccess';
@@ -20,7 +21,8 @@ export default function Home() {
     <main>
       <Hero />
       <WhyNorthStar />
-       <GlobalCareerPath />
+      <GlobalCoursesHub />
+      <GlobalCareerPath />
      
      <MeetYourMentor />
       <LearningExperience />
