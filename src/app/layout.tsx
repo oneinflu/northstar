@@ -6,7 +6,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 
 import Footer from "@/components/Footer";
 import FloatingCalendarBadge from "@/components/FloatingCalendarBadge";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
+// import ExitIntentPopup from "@/components/ExitIntentPopup";
 import ScrollLeadCapture from "@/components/ScrollLeadCapture";
 import SmartLeadMagnetBanner from "@/components/SmartLeadMagnetBanner";
 
@@ -41,7 +41,7 @@ export default function RootLayout({
         {children}
        
         <FloatingCalendarBadge />
-        <ExitIntentPopup />
+       
         <ScrollLeadCapture />
         <SmartLeadMagnetBanner />
         <Footer />

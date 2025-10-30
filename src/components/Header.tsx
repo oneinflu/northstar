@@ -49,6 +49,9 @@ const Header = () => {
                   <Link href="/acca-uk" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
                     ACCA
                   </Link>
+                   <Link href="/cia" className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
+                    CIA
+                  </Link>
                 </div>
               )}
             </div>
@@ -134,6 +137,8 @@ const Header = () => {
                     <Link href="/cma-usa" className="block text-gray-600 hover:text-indigo-600">CMA</Link>
                     <Link href="/cpa-us" className="block text-gray-600 hover:text-indigo-600">CPA (US)</Link>
                     <Link href="/acca-uk" className="block text-gray-600 hover:text-indigo-600">ACCA</Link>
+                 <Link href="/cia" className="block text-gray-600 hover:text-indigo-600">CIA</Link>
+                 
                   </div>
                 )}
               </div>
