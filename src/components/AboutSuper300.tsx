@@ -828,6 +828,7 @@ const AboutSuper300 = () => {
 
             {/* Spectacular CTA Button */}
             <motion.div
+              id="apply-section"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: 1.6, type: "spring", stiffness: 200 }}
