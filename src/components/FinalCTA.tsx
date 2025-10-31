@@ -1,233 +1,253 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 
-export default function FinalCTA() {
-  const [showModal, setShowModal] = useState(false)
-  const [glowAnimation, setGlowAnimation] = useState(false)
+const FinalCTA = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [timeLeft, setTimeLeft] = useState({
+    days: 7,
+    hours: 13,
+    minutes: 25,
+    seconds: 42
+  });
 
-  // Glow animation every 12 seconds
+  // Countdown timer effect
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGlowAnimation(true)
-      setTimeout(() => setGlowAnimation(false), 2000)
-    }, 12000)
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) {
+          return { ...prev, seconds: prev.seconds - 1 };
+        } else if (prev.minutes > 0) {
+          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        } else if (prev.hours > 0) {
+          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        } else if (prev.days > 0) {
+          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
+        }
+        return prev;
+      });
+    }, 1000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
-  const trustBadges = [
-    { icon: '✅', text: 'Verified Mentorship' },
-    { icon: '💳', text: 'EMI & Scholarships' },
-    { icon: '🔒', text: 'Secure Enrollment' },
-    { icon: '⏰', text: 'Limited Seats Per Batch' }
-  ]
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        duration: 0.8
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut" as const
+      }
+    }
+  };
+
+  const urgencyStats = [
+    { number: '300', label: 'Scholarships Available', icon: '🎯' },
+    { number: '₹27Cr', label: 'Total Scholarship Value', icon: '💰' },
+    { number: '7', label: 'Days Left to Apply', icon: '⏰' },
+    { number: '5', label: 'Global Programs', icon: '🌍' }
+  ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+    <section 
+      ref={ref}
+      className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden"
+    >
+      {/* Dramatic Background Effects */}
+      <div className="absolute inset-0">
+        {/* Animated Gradient Mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 animate-pulse" />
+        
+        {/* Floating Orbs */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-500/30 rounded-full blur-2xl animate-bounce" />
+        <div className="absolute top-20 right-20 w-48 h-48 bg-purple-500/30 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-pink-500/30 rounded-full blur-2xl animate-bounce delay-500" />
+        
+        {/* Radial Gradient */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-blue-900/10 to-slate-900/50" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-        {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
+      <div className="relative max-w-7xl mx-auto">
+        {/* Urgency Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+          transition={{ duration: 0.8 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16"
         >
-          <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-            Ready to Build Your Global Finance Career?
-          </h2>
-          <div className="text-xl text-blue-200 max-w-2xl mx-auto space-y-2">
-            <p>You bring the ambition.</p>
-            <p>We bring the mentorship, platform, and opportunities.</p>
-          </div>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
-        >
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-            {/* Primary CTA */}
-            <motion.button
-              onClick={() => setShowModal(true)}
-              className={`relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-2xl transform hover:scale-105 ${
-                glowAnimation ? 'animate-pulse ring-4 ring-blue-400' : ''
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">Book Free Counselling →</span>
-              {glowAnimation && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1.2 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-2xl blur-lg"
-                />
-              )}
-            </motion.button>
-          </div>
-
-          {/* Secondary CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="tel:+919876543210"
-              className="flex items-center bg-white/10 backdrop-blur-lg text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20"
-            >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-              </svg>
-              Call Now
-            </a>
-            
-            <a
-              href="https://wa.me/919876543210?text=Hi! I'm ready to start my global finance career journey."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 relative"
-            >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-              </svg>
-              Message on WhatsApp
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                Instant Response
-              </span>
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Trust Badges */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-3xl mx-auto"
-        >
-          {trustBadges.map((badge, index) => (
+          {urgencyStats.map((stat, index) => (
             <motion.div
-              key={badge.text}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white/10 backdrop-blur-lg rounded-xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300"
+              key={index}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 * index }}
+              whileHover={{ scale: 1.05 }}
+              className="relative group"
             >
-              <div className="text-2xl mb-2">{badge.icon}</div>
-              <div className="text-sm font-medium text-blue-100">{badge.text}</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300" />
+              <div className="relative bg-slate-800/80 backdrop-blur-xl rounded-xl p-4 border border-slate-700/50 text-center">
+                <div className="text-2xl mb-2">{stat.icon}</div>
+                <div className="text-2xl lg:text-3xl font-bold text-white mb-1">{stat.number}</div>
+                <div className="text-xs lg:text-sm text-slate-400">{stat.label}</div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Final Assurance */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12"
+        {/* Main CTA Content */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="text-center"
         >
-          <p className="text-blue-200 text-lg">
-            Join thousands of professionals who transformed their careers with us.
-          </p>
-          <p className="text-blue-300 text-sm mt-2">
-            Your success story starts with one click.
-          </p>
+          {/* Prestige Badge */}
+          <motion.div
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full border border-amber-400/30 mb-8"
+          >
+            <span className="text-3xl">👑</span>
+            <span className="text-amber-300 font-semibold text-lg">Elite Opportunity</span>
+          </motion.div>
+
+          {/* Main Headline */}
+          <motion.h1
+            variants={itemVariants}
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+          >
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Become One of the
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent">
+              Super 300
+            </span>
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p
+            variants={itemVariants}
+            className="text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto mb-8 leading-relaxed"
+          >
+            Join India&apos;s most prestigious scholarship program. 
+            <span className="text-blue-400 font-semibold"> ₹90,000 scholarship</span> awaits the 
+            <span className="text-purple-400 font-semibold"> ambitious few</span> who dare to dream global.
+          </motion.p>
+
+          {/* Countdown Timer */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-12"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold text-white mb-2">Applications Close In:</h3>
+              <div className="flex justify-center gap-4 lg:gap-8">
+                {Object.entries(timeLeft).map(([unit, value]) => (
+                  <motion.div
+                    key={unit}
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
+                    className="text-center"
+                  >
+                    <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-xl p-4 lg:p-6 min-w-[80px] lg:min-w-[100px]">
+                      <div className="text-2xl lg:text-4xl font-bold text-white">{value.toString().padStart(2, '0')}</div>
+                    </div>
+                    <div className="text-sm lg:text-base text-slate-400 mt-2 capitalize">{unit}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              className="relative group px-12 py-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-xl rounded-2xl overflow-hidden"
+            >
+              {/* Button Background Animation */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Ripple Effect */}
+              <div className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500" />
+              
+              <span className="relative z-10 flex items-center gap-3">
+                <span>🚀</span>
+                Apply for Super 300 Now
+              </span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-slate-800/80 backdrop-blur-xl text-white font-semibold text-lg rounded-xl border border-slate-600 hover:border-slate-500 transition-all duration-300"
+            >
+              Download Brochure
+            </motion.button>
+          </motion.div>
+
+          {/* Final Urgency Message */}
+          <motion.div
+            variants={itemVariants}
+            className="max-w-3xl mx-auto"
+          >
+            <div className="bg-gradient-to-r from-red-500/10 to-pink-500/10 rounded-2xl p-6 border border-red-400/30">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="text-3xl animate-pulse">⚠️</span>
+                <h4 className="text-xl font-bold text-red-400">Limited Time Opportunity</h4>
+              </div>
+              <p className="text-slate-300 leading-relaxed">
+                Only <span className="text-red-400 font-bold">300 scholarships</span> available across India. 
+                Once applications close, there are <span className="text-red-400 font-bold">no reopens</span>. 
+                Don&apos;t let this life-changing opportunity slip away.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Social Proof */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-16 text-center"
+          >
+            <p className="text-slate-400 mb-4">Trusted by students who now work at:</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+              {['EY', 'Deloitte', 'PwC', 'KPMG', 'Amazon', 'Google'].map((company, index) => (
+                <motion.div
+                  key={company}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  className="text-slate-500 font-semibold text-lg"
+                >
+                  {company}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {showModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-            onClick={() => setShowModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-2xl p-8 max-w-md w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Book Your Free Counselling
-                </h3>
-                <p className="text-gray-600">
-                  Get personalized guidance for your global finance career
-                </p>
-              </div>
-              
-              <form className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                  <option>Select Course Interest</option>
-                  <option>CMA (US)</option>
-                  <option>CPA (US)</option>
-                  <option>ACCA (UK)</option>
-                  <option>Not Sure - Need Guidance</option>
-                </select>
-                <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                  <option>Current Education Level</option>
-                  <option>12th Pass</option>
-                  <option>Graduate</option>
-                  <option>Post Graduate</option>
-                  <option>Working Professional</option>
-                </select>
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
-                >
-                  Book Free Counselling Session
-                </button>
-              </form>
-              
-              <div className="text-center mt-4">
-                <p className="text-sm text-gray-500">
-                  ✅ No spam calls • ✅ Expert guidance • ✅ 100% Free
-                </p>
-              </div>
-              
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
-  )
-}
+  );
+};
+
+export default FinalCTA;

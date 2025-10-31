@@ -1,9 +1,9 @@
 
 
-import Image from "next/image";
+
 import Hero from '@/components/Hero';
 import WhyNorthStar from '@/components/WhyNorthStar';
-import SuccessStories from '@/components/SuccessStories';
+
 import GlobalCareerPath from '@/components/GlobalCareerPath';
 import GlobalCoursesHub from '@/components/GlobalCoursesHub';
 import MeetYourMentor from "@/components/MeetYourMentor";
